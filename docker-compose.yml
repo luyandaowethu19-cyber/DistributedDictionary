@@ -1,0 +1,24 @@
+services:
+  server:
+    build:
+      context: .
+      target: server
+    container_name: dictionary-server
+    ports:
+      - "5000:5000"
+    networks:
+      - dictionary-network
+
+  client:
+    build:
+      context: .
+      target: client
+    container_name: dictionary-client
+    depends_on:
+      - server
+    networks:
+      - dictionary-network
+
+networks:
+  dictionary-network:
+    driver: bridge
